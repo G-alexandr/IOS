@@ -7,17 +7,15 @@
 <div class="navbar" style="width: 601px;">
     <div class="navbar-inner">
         <ul class="nav">
-            <li style="width: 100px;"><a href="<spring:url value="/" htmlEscape="true" />"><i class="icon-home"></i>
-                Profile</a></li>
-            <li style="width: 130px;"><a href="<spring:url value="/owners/find.html" htmlEscape="true" />"><i
-                    class="icon-search"></i>Themes</a></li>
-            <li style="width: 140px;"><a href="<spring:url value="/vets.html" htmlEscape="true" />"><i
+            <li style="width: 100px;"><a href="<spring:url value="/" htmlEscape="true" />"><i
+                    class="icon-home"></i>Home</a></li>
+            <li style="width: 130px;"><a href="<spring:url value="/main/themes" htmlEscape="true" />"><i
+                    class="icon-th-list"></i>Themes</a></li>
+            <li style="width: 140px;"><a href="<spring:url value="/main/tasks" htmlEscape="true" />"><i
                     class="icon-th-list"></i>Tasks</a></li>
-            <li style="width: 90px;"><a href="<spring:url value="/oups.html" htmlEscape="true" />"
-                                        title="trigger a RuntimeException to see how it is handled"><i
-                    class="icon-warning-sign"></i> Error</a></li>
-            <li style="width: 80px;"><a href="#" title="not available yet. Work in progress!!"><i
-                    class=" icon-question-sign"></i> Help</a></li>
+            <li style="width: 140px;"><a href="<spring:url value="/main/statistic" htmlEscape="true" />"><i
+                class="icon-th-list"></i>Statistic</a></li>
+
         </ul>
     </div>
 </div>
