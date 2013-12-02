@@ -15,8 +15,6 @@
 
     <h2><spring:message message="task"></spring:message> </h2>
 
-
-
     <jsp:include page="../fragments/footer.jsp"/>
 
 </div>

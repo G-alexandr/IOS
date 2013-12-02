@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 
@@ -46,12 +47,13 @@ public class MainController extends AbstractBaseController{
 
 
     @RequestMapping("/main/tasks")
-    public String showVetList(Map<String, Object> model) {
-        // Here we are returning an object of type 'Vets' rather than a collection of Vet objects
-        // so it is simpler for Object-Xml mapping
+    public String showVetList(Map<String, Object> model, HttpServletRequest request) {
+        if(isUserLogged())
+            return getLoginPage();
         Vets vets = new Vets();
         vets.getVetList().addAll(this.clinicService.findVets());
         model.put("tasks", vets);
+
         return "/main/tasks";
     }
     @RequestMapping(value = "/main/themes", method = RequestMethod.GET)

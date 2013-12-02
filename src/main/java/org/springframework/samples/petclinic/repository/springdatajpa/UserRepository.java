@@ -10,4 +10,6 @@ import org.springframework.samples.petclinic.model.User;
  * Time: 23:19
  */
 public interface UserRepository extends JpaRepository<User, Integer> {
+
+    User findByName(String name);
 }
