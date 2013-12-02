@@ -18,5 +18,6 @@ public class ThemeProgress extends BaseEntity {
     private Theme theme;
 
     private int score;
+
     private boolean completed;
 }

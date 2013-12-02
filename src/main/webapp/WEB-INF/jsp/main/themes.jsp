@@ -13,7 +13,11 @@
 <div class="container">
     <jsp:include page="../fragments/bodyHeader.jsp"/>
 
-    <h2><spring:message message="task"></spring:message> </h2>
+    <h2><spring:message code="tasks"/></h2>
+
+    <div id="theme-content">This is a theme content which should be said by google speech</div>
+
+    <input type="button"  onclick="location.href='/getWav.mp3'" value="Read" >
 
     <jsp:include page="../fragments/footer.jsp"/>
 
