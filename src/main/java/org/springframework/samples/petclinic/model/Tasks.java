@@ -22,22 +22,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Simple domain object representing a list of veterinarians. Mostly here to be used for the 'vets' {@link
+ * Simple domain object representing a list of veterinarians. Mostly here to be used for the 'tasks' {@link
  * org.springframework.web.servlet.view.xml.MarshallingView}.
  *
  * @author Arjen Poutsma
  */
 @XmlRootElement
-public class Vets {
+public class Tasks {
 
-    private List<Vet> vets;
+    private List<Task> tasks;
 
     @XmlElement
-    public List<Vet> getVetList() {
-        if (vets == null) {
-            vets = new ArrayList<Vet>();
+    public List<Task> getTasksList() {
+        if (tasks == null) {
+            tasks = new ArrayList<Task>();
         }
-        return vets;
+        return tasks;
     }
 
 }

@@ -5,6 +5,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="datatables" uri="http://github.com/dandelion/datatables" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <html lang="en">
 
@@ -16,14 +17,16 @@
 
     <h2>Tasks</h2>
 
-    <datatables:table id="tasks" data="${tasks.vetList}" cdn="true" row="task" theme="bootstrap2" cssClass="table table-striped" paginate="false" info="false">
+    <datatables:table id="tasks" data="${tasks.tasksList}" cdn="true" row="task" theme="bootstrap2" cssClass="table table-striped" paginate="false" info="false" rowIdBase="">
+
         <datatables:column title="Name">
-            <c:out value="${task.firstName} ${task.lastName}"></c:out>
+            <spring:url value="/tasks/{taskId}" var="taskUrl">
+                <spring:param name="taskId" value="${task.id}"/>
+            </spring:url>
+            <a href="${fn:escapeXml(taskUrl)}"><c:out value="${task.firstName} ${task.lastName}"></c:out></a>
         </datatables:column>
         <datatables:column title="Description">
-            <c:forEach var="specialty" items="${task.specialties}">
-                <c:out value="${specialty.name}"/>
-            </c:forEach>
+            <c:out value="${task.description}"/>
             <c:if test="${task.nrOfSpecialties == 0}">Nothing to display</c:if>
         </datatables:column>
         <datatables:column title="Lock">
