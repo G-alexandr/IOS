@@ -52,3 +52,13 @@ INSERT INTO visits VALUES (2, 8, '2013-01-02', 'rabies shot');
 INSERT INTO visits VALUES (3, 8, '2013-01-03', 'neutered');
 INSERT INTO visits VALUES (4, 7, '2013-01-04', 'spayed');
 
+-- ==============================================================================
+
+-- INSERT INTO task VALUES (1, 'Test task1', 'DEscrsdf', 'test', FALSE);
+-- INSERT INTO task VALUES (2, 'Test task2', 'DEsdssdfcr', 'test', FALSE);
+-- INSERT INTO task VALUES (3, 'Test task234', 'DEscr', 'test', FALSE);
+-- INSERT INTO task VALUES (4, 'Test task14', 'DEasdscr', 'test' ,TRUE);
+-- INSERT INTO task VALUES (5, 'Test task1asd', 'DEscr', 'test', TRUE );
+-- INSERT INTO task VALUES (6, 'Test task1a', 'DEsasdfdscr', 'test', TRUE );
+
+

@@ -36,15 +36,19 @@ public class LoginController extends AbstractBaseController{
 
     @RequestMapping("/login")
     public String checkLogin(ModelMap model, HttpServletRequest request) {
-        for (Cookie cookie : request.getCookies()) {
-            if (cookie.getName().equals(USERNAME)) {
-                User user = userRepository.findByName(cookie.getName());
-                model.put(UNAME, user);
-                 //put in session
-                return "welcome";
+        Cookie[] cookies = request.getCookies();
+        if(cookies != null)
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals(USERNAME)) {
+                    User user = userRepository.findByName(cookie.getName());
+                    if(user != null){
+                        model.put(UNAME, user);
+                         //put in session
+                        return "welcome";
+                    }
+                }
             }
-            model.put(UNAME, new User());
-        }
+        model.put(UNAME, new User());
         return "/login/login";
     }
 
