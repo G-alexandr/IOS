@@ -17,4 +17,28 @@ public class ThemeContent extends BaseEntity {
     private String contentBody;
 
     private int score;
+
+    public Theme getTheme() {
+        return theme;
+    }
+
+    public void setTheme(Theme theme) {
+        this.theme = theme;
+    }
+
+    public String getContentBody() {
+        return contentBody;
+    }
+
+    public void setContentBody(String contentBody) {
+        this.contentBody = contentBody;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
 }

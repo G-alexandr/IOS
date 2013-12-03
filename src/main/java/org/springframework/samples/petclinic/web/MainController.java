@@ -15,91 +15,60 @@
  */
 package org.springframework.samples.petclinic.web;
 
-import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.samples.petclinic.model.Tasks;
-import org.springframework.samples.petclinic.repository.springdatajpa.TasksRepository;
+import org.springframework.samples.petclinic.model.Vets;
+import org.springframework.samples.petclinic.repository.springdatajpa.ThemeContentRepository;
+import org.springframework.samples.petclinic.repository.springdatajpa.ThemeRepository;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.util.Map;
 
 
 @Controller
 public class MainController extends AbstractBaseController{
 
+
     @Autowired
-    private TasksRepository tasksRepository;
+    private ThemeRepository themeRepository;
 
-    @InitBinder
-    public void setAllowedFields(WebDataBinder dataBinder) {
-        dataBinder.setDisallowedFields("id");
-    }
-
+    @Autowired
+    private ThemeContentRepository themeContentRepository;
 
     @RequestMapping("/main/tasks")
     public String showVetList(Map<String, Object> model, HttpServletRequest request) {
         if(isUserLogged())
             return getLoginPage();
-        Tasks tasks = new Tasks();
-        tasks.getTasksList().addAll(tasksRepository.findAll());
-        model.put("tasks", tasks);
+        Vets vets = new Vets();
+//        vets.getVetList().addAll(this.clinicService.findVets());
+        model.put("tasks", vets);
 
         return "/main/tasks";
     }
     @RequestMapping(value = "/main/themes", method = RequestMethod.GET)
-    public String getThemesList() {
-
+    public String getThemesList(Map<String, Object> model) {
+        model.put("themeList", themeRepository.findAll());
         return "main/themes";
     }
+
+    @RequestMapping(value = "/main/themes/{id}", method = RequestMethod.GET)
+    public String getThemeContents(Map<String, Object> model, @PathVariable Integer id) {
+        model.put("theme", themeRepository.findOne(id));
+        model.put("contents", themeContentRepository.findByThemeId(id));
+        return "content/themeContent";
+    }
+
     @RequestMapping(value = "/main/statistic", method = RequestMethod.GET)
     public String getStatistic() {
+//        Pet pet = this.clinicService.findPetById(petId);
+//        Visit visit = new Visit();
+//        pet.addVisit(visit);
+        //call tasklist service
 
+//        model.put("visit", visit);
         return "main/statistic";
     }
 
-    @RequestMapping(value = "getWav.mp3")
-    @ResponseBody
-    public FileSystemResource getWav(){
-        URL url;
-        File file = null;
-        try {
-            String text = "Hello world";
-                    URLEncoder.encode("Hello world", "UTF-8");
-            url = new URL("http://translate.google.com/translate_tts?ie=UTF-8&tl=en&q="+URLEncoder.encode(text , "UTF-8"));
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
-            conn.addRequestProperty("User-Agent", USER_AGENT);
-            conn.connect();
-            InputStream audioSrc = conn.getInputStream();
-            DataInputStream read = new DataInputStream(audioSrc);
-            file = stream2file(read);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return new FileSystemResource(file);
-    }
-
-    private static final String PREFIX = "stream2file";
-    private static final String SUFFIX = ".tmp";
-
-    private static File stream2file (InputStream in) throws IOException {
-        final File tempFile = File.createTempFile(PREFIX, SUFFIX);
-        tempFile.deleteOnExit();
-        try (FileOutputStream out = new FileOutputStream(tempFile)) {
-            IOUtils.copy(in, out);
-        }
-        return tempFile;
-    }
 
 }

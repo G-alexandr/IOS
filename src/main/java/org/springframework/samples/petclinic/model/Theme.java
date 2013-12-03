@@ -11,4 +11,12 @@ import javax.persistence.Entity;
 @Entity
 public class Theme extends NamedEntity{
     private String description;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }
