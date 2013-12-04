@@ -15,7 +15,7 @@ PetClinic :: a Spring Framework demonstration
     <spring:url value="/resources/css/petclinic.css" var="petclinicCss"/>
     <link href="${petclinicCss}" rel="stylesheet"/>
 
-    <spring:url value="/webjars/jquery/2.0.3/jquery.js" var="jQuery"/>
+    <spring:url value="http://code.jquery.com/jquery-1.10.2.min.js" var="jQuery"/>
     <script src="${jQuery}"></script>
 
 	<!-- jquery-ui.js file is really big so we only load what we need instead of loading everything -->

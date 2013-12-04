@@ -13,7 +13,6 @@ public class TaskContent extends BaseEntity {
 
     private String content;
     private int score;
-
     @ManyToOne
     private Task task;
 

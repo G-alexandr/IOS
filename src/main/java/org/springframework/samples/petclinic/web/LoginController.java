@@ -42,7 +42,7 @@ public class LoginController extends AbstractBaseController{
                     User user = userRepository.findByName(cookie.getName());
                     if(user != null){
                         model.put(UNAME, user);
-                         //put in session
+                        request.getSession().setAttribute(UNAME, user);
                         return "welcome";
                     }
                 }
