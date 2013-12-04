@@ -13,6 +13,7 @@ import java.util.List;
  */
 @Entity
 public class Task extends NamedEntity {
+
     private String type;
     private String description;
     private Boolean lock;
