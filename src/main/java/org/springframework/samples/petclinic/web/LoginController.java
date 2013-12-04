@@ -28,7 +28,6 @@ import javax.servlet.http.HttpServletRequest;
 
 
 @Controller
-//@SessionAttributes("visit")
 public class LoginController extends AbstractBaseController{
 
     @Autowired
@@ -55,10 +54,15 @@ public class LoginController extends AbstractBaseController{
     @RequestMapping("/login/createUser")
     public String createUser(@ModelAttribute(UNAME) User user, HttpServletRequest request) {
 
+        User baseUser = userRepository.findByName(user.getName());
+        if(baseUser != null){
+            user.setId(baseUser.getId());
+            user.setFinishedThemeContentList(baseUser.getFinishedThemeContentList());
+        }
         user = userRepository.saveAndFlush(user);
         request.getSession().setAttribute(UNAME, user);
 
-        setCurrentUser(user);
+//        setCurrentUser(user);
         return "/welcome";
     }
 

@@ -5,6 +5,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="datatables" uri="http://github.com/dandelion/datatables" %>
 
 <html lang="en">
 
@@ -17,17 +18,20 @@
 
         <h2><spring:message code="themes"/></h2>
 
-        <c:forEach var="themeObject" items="${themeList}">
-            <div>
-                <div>${themeObject.id}</div>
-                <div><a href="${contextPath}/main/themes/${themeObject.id}">${themeObject.name}</a></div>
-                <div>${themeObject.description}</div>
-            </div>
-        </c:forEach>
+        <datatables:table id="tasks" data="${themeList}" cdn="true" row="themeObject" theme="bootstrap2" cssClass="table table-striped" paginate="false" info="false" rowIdBase="">
 
-        <%--<div id="theme-content">This is a theme content which should be said by google speech</div>--%>
+            <datatables:column title="Number">
+                ${themeObject.id}
+            </datatables:column>
 
-        <%--<input type="button"  onclick="location.href='/getWav.mp3'" value="Read" >--%>
+            <datatables:column title="Name">
+                <a href="${contextPath}/main/themes/${themeObject.id}">${themeObject.name}
+            </datatables:column>
+
+            <datatables:column title="Description">
+                ${themeObject.description}
+            </datatables:column>
+        </datatables:table>
 
         <jsp:include page="../fragments/footer.jsp"/>
 

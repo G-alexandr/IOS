@@ -13,7 +13,7 @@
                     class="icon-th-list"></i>Themes</a></li>
             <li style="width: 140px;"><a href="<spring:url value="/main/tasks" htmlEscape="true" />"><i
                     class="icon-th-list"></i>Tasks</a></li>
-            <li style="width: 140px;"><a href="<spring:url value="/main/statistic" htmlEscape="true" />"><i
+            <li style="width: 140px;"><a href="<spring:url value="/statistic" htmlEscape="true" />"><i
                 class="icon-th-list"></i>Statistic</a></li>
 
         </ul>

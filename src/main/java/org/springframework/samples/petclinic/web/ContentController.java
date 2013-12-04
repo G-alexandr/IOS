@@ -4,15 +4,18 @@ import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.samples.petclinic.repository.springdatajpa.ThemeContentRepository;
+import org.springframework.samples.petclinic.service.ContentService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -24,8 +27,19 @@ import java.net.URLEncoder;
 @RequestMapping("main/themes/content")
 public class ContentController extends AbstractBaseController {
 
+
     @Autowired
     private ThemeContentRepository themeContentRepository;
+
+
+    @Autowired
+    private ContentService contentService;
+
+    @RequestMapping("/{id}/finish")
+    public void finish(@PathVariable Integer id, HttpServletRequest request, Map<String, Object> model){
+        contentService.handleFinishReading(id);
+
+    }
 
     @RequestMapping("/{id}/play.mp3")
     @ResponseBody
