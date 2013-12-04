@@ -1,6 +1,9 @@
 package org.springframework.samples.petclinic.model;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -13,6 +16,16 @@ public class Task extends NamedEntity {
     private String type;
     private String description;
     private Boolean lock;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "task")
+    private List<TaskContent> taskContents;
+
+    public List<TaskContent> getTaskContents() {
+        return taskContents;
+    }
+
+    public void setTaskContents(List<TaskContent> taskContents) {
+        this.taskContents = taskContents;
+    }
 
     public String getType() {
         return type;

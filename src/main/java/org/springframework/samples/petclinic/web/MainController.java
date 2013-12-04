@@ -16,11 +16,14 @@
 package org.springframework.samples.petclinic.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.petclinic.model.Vets;
+import org.springframework.samples.petclinic.model.Tasks;
+import org.springframework.samples.petclinic.repository.springdatajpa.TasksRepository;
 import org.springframework.samples.petclinic.repository.springdatajpa.ThemeContentRepository;
 import org.springframework.samples.petclinic.repository.springdatajpa.ThemeRepository;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
@@ -36,14 +39,17 @@ public class MainController extends AbstractBaseController{
     @Autowired
     private ThemeContentRepository themeContentRepository;
 
+    @Autowired
+    private TasksRepository tasksRepository;
+
     @RequestMapping("/main/tasks")
     public String showVetList(Map<String, Object> model, HttpServletRequest request) {
         if(isUserLogged())
             return getLoginPage();
-        Vets vets = new Vets();
-//        vets.getVetList().addAll(this.clinicService.findVets());
-        model.put("tasks", vets);
 
+        Tasks tasks = new Tasks();
+        tasks.getTasksList().addAll(tasksRepository.findAll());
+        model.put("tasks", tasks);
         return "/main/tasks";
     }
     @RequestMapping(value = "/main/themes", method = RequestMethod.GET)
