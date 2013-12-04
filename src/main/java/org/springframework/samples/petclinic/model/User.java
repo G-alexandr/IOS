@@ -16,7 +16,7 @@ public class User extends NamedEntity {
 
     private String username;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<ThemeContent> finishedThemeContentList = new ArrayList<>();
 
     public String getUsername() {
