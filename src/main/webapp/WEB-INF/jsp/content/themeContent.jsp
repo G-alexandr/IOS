@@ -21,7 +21,7 @@
             <div>${content.contentBody}</div>
             <input type="button"  onclick="location.href='content/${content.id}/play.mp3'" value="Listen" >
             <c:if test="${!userContents.contains(content.id)}">
-                <input type="button"  onclick="location.href='content/${content.id}/finish'" value="Finish reading" >
+                <input type="button"  onclick="location.href='content/${theme.id}/finish/${content.id}'" value="Finish reading" >
             </c:if>
 
         </div>

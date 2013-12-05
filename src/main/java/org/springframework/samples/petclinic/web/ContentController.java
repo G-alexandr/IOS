@@ -31,14 +31,16 @@ public class ContentController extends AbstractBaseController {
     @Autowired
     private ThemeContentRepository themeContentRepository;
 
-
     @Autowired
     private ContentService contentService;
 
-    @RequestMapping("/{id}/finish")
-    public void finish(@PathVariable Integer id, HttpServletRequest request, Map<String, Object> model){
-        contentService.handleFinishReading(id);
+    @Autowired
+    private MainController mainController;
 
+    @RequestMapping("/{themeId}/finish/{contentId}")
+    public String finish(@PathVariable Integer themeId,@PathVariable Integer contentId, Map<String,Object> model){
+        contentService.handleFinishReading(contentId);
+        return mainController.getThemeContents(model, themeId);
     }
 
     @RequestMapping("/{id}/play.mp3")

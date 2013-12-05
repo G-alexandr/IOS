@@ -25,7 +25,7 @@
             </datatables:column>
 
             <datatables:column title="Name">
-                <a href="${contextPath}/main/themes/${themeObject.id}">${themeObject.name}
+                <a href="${contextPath}/main/themes/${themeObject.id}">${themeObject.name}</a>
             </datatables:column>
 
             <datatables:column title="Description">

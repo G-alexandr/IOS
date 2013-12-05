@@ -1,5 +1,8 @@
 package org.springframework.samples.petclinic.model;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,15 +19,15 @@ public class User extends NamedEntity {
 
     private String username;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<ThemeContent> finishedThemeContentList = new ArrayList<>();
 
-//    public List<Task> getFinishedTaskList() {
-//        return finishedTaskList;
-//    }
-//
-//    public void setFinishedTaskList(List<Task> finishedTaskList) {
-//        this.finishedTaskList = finishedTaskList;
+    @ManyToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Task> finishedTasks = new ArrayList<>();
+
+    private int score;
+
 //    }
 //
 //    @OneToMany(fetch = FetchType.EAGER)
@@ -44,6 +47,22 @@ public class User extends NamedEntity {
 
     public void setFinishedThemeContentList(List<ThemeContent> finishedThemeContentList) {
         this.finishedThemeContentList = finishedThemeContentList;
+    }
+
+    public List<Task> getFinishedTasks() {
+        return finishedTasks;
+    }
+
+    public void setFinishedTasks(List<Task> finishedTasks) {
+        this.finishedTasks = finishedTasks;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
     }
 
 }
