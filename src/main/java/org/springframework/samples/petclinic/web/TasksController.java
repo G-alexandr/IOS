@@ -4,7 +4,10 @@ import com.wolfram.alpha.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Task;
 import org.springframework.samples.petclinic.model.TaskTask;
+import org.springframework.samples.petclinic.model.User;
 import org.springframework.samples.petclinic.repository.springdatajpa.TasksRepository;
+import org.springframework.samples.petclinic.repository.springdatajpa.UserRepository;
+import org.springframework.samples.petclinic.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -25,6 +28,9 @@ public class TasksController extends AbstractBaseController {
     private static final String FALSE = "False! Your solution is wrong.";
     @Autowired
     private TasksRepository tasksRepository;
+    @Autowired
+    private UserRepository userRepository;
+
 
     @RequestMapping(value = "*/tasks/{taskId}", method = RequestMethod.GET)
     public ModelAndView processTask(@PathVariable int taskId) {
@@ -59,7 +65,7 @@ public class TasksController extends AbstractBaseController {
             }
         }
         input = buf.toString();
-        String answer = "nothing";
+        String answer = "wrong";
         String solution = "solution";
 
         WAEngine engine = new WAEngine();
@@ -93,7 +99,7 @@ public class TasksController extends AbstractBaseController {
                                     if (element instanceof WAPlainText) {
                                         answer=((WAPlainText) element).getText();
                                         solution = rateSolution(task.getTaskContents().get(0).getAnswer(),
-                                                answer, taskAnswer.getAnswer() );
+                                                answer, taskAnswer.getAnswer(), task.getTaskContents().get(0).getScore());
                                     }
                                 }
                             }
@@ -118,19 +124,17 @@ public class TasksController extends AbstractBaseController {
 
     }
 
-    private String rateSolution(int correctAnswer, String wolframAnswer, String ansverValue){
+    private String rateSolution(int correctAnswer, String wolframAnswer, String ansverValue, int score){
 
-        int wolfram=0;   //TODO fix it
-        for (String st : wolframAnswer.split(",")){
-            if(st.contains(ansverValue))
-                wolfram = Integer.valueOf(st.substring(st.indexOf("=") + 2));
-        }
-        if((correctAnswer+(correctAnswer*0.1))>wolfram && (correctAnswer-(correctAnswer*0.1))<wolfram){
-            //compute balls here
+
+        if(wolframAnswer.contains(String.valueOf(correctAnswer))){
+            User user = userRepository.findOne(UserService.getCurrentUser().getId());
+            user.setScore(user.getScore()+score);
+            userRepository.saveAndFlush(user);
             return TRUTH;
         }
-        //Todo  save it
 
+                //поверь, мне очень стыдно
         return FALSE;
 
     }

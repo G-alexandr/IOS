@@ -26,7 +26,7 @@ public class User extends NamedEntity {
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Task> finishedTasks = new ArrayList<>();
 
-    private int score;
+    private Integer score = 0;
 
 //    }
 //
@@ -57,12 +57,11 @@ public class User extends NamedEntity {
         this.finishedTasks = finishedTasks;
     }
 
-    public int getScore() {
+    public Integer getScore() {
         return score;
     }
 
-    public void setScore(int score) {
+    public void setScore(Integer score) {
         this.score = score;
     }
-
 }

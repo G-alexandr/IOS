@@ -46,6 +46,8 @@ public class MainController extends AbstractBaseController{
     @Autowired
     private TasksRepository tasksRepository;
 
+
+
     @RequestMapping("/main/tasks")
     public String showVetList(Map<String, Object> model, HttpServletRequest request) {
         if(!isUserLogged())
@@ -54,7 +56,7 @@ public class MainController extends AbstractBaseController{
         Tasks tasks = new Tasks();
         tasks.getTasksList().addAll(tasksRepository.findAll());
         model.put("tasks", tasks);
-        model.put("openscore", 10);
+        model.put("openscore", UserService.getCurrentUser().getScore());
         return "/main/tasks";
     }
     @RequestMapping(value = "/main/themes", method = RequestMethod.GET)
