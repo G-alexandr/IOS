@@ -15,7 +15,7 @@
 <div class="container">
     <jsp:include page="../fragments/bodyHeader.jsp"/>
 
-    <h2><spring:message code="themes"/></h2>
+    <h2><spring:message code="statistic"/></h2>
 
     <datatables:table id="tasks" data="${progressList}" cdn="true" row="progressRow" theme="bootstrap2" cssClass="table table-striped" paginate="false" info="false" rowIdBase="">
 

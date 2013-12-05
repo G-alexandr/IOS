@@ -1,6 +1,8 @@
 package org.springframework.samples.petclinic.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 
 /**
@@ -14,6 +16,8 @@ public class ThemeContent extends BaseEntity {
     @ManyToOne
     private Theme theme;
 
+    @Lob
+    @Column(length=1024*5)       //5KB
     private String contentBody;
 
     private int score;

@@ -57,7 +57,6 @@ public class MainController extends AbstractBaseController{
         tasks.getTasksList().addAll(tasksRepository.findAll());
         model.put("tasks", tasks);
         model.put("openscore", UserService.getCurrentUser().getScore());
-        return "/main/tasks";
     }
     @RequestMapping(value = "/main/themes", method = RequestMethod.GET)
     public String getThemesList(Map<String, Object> model) {
@@ -74,7 +73,7 @@ public class MainController extends AbstractBaseController{
         model.put("theme", themeRepository.findOne(id));
         model.put("contents", themeContentRepository.findByThemeId(id));
         List<Integer> ids = new ArrayList<>();
-        for(ThemeContent themeContent:UserService.getCurrentUser().getFinishedThemeContentList()){
+        for(ThemeContent themeContent: UserService.getCurrentUser().getFinishedThemeContentList()){
             ids.add(themeContent.getId());
         }
         model.put("userContents", ids);

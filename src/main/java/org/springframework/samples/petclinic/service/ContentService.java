@@ -49,7 +49,10 @@ public class ContentService {
             themeProgress.setUser(user);
         }
 
-        themeProgress.setScore(themeProgress.getScore() + themeContent.getScore());
+        int contentScore = themeContent.getScore();
+
+        themeProgress.setScore(themeProgress.getScore() + contentScore);
+        user.setScore(user.getScore() + contentScore);
 
         if(user.getFinishedThemeContentList().containsAll(theme.getThemeContents())){
             themeProgress.setCompleted(true);
