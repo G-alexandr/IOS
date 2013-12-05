@@ -19,16 +19,16 @@ public class User extends NamedEntity {
     @OneToMany(fetch = FetchType.EAGER)
     private List<ThemeContent> finishedThemeContentList = new ArrayList<>();
 
-    public List<Task> getFinishedTaskList() {
-        return finishedTaskList;
-    }
-
-    public void setFinishedTaskList(List<Task> finishedTaskList) {
-        this.finishedTaskList = finishedTaskList;
-    }
-
-    @OneToMany(fetch = FetchType.EAGER)
-    private List<Task> finishedTaskList = new ArrayList<>();
+//    public List<Task> getFinishedTaskList() {
+//        return finishedTaskList;
+//    }
+//
+//    public void setFinishedTaskList(List<Task> finishedTaskList) {
+//        this.finishedTaskList = finishedTaskList;
+//    }
+//
+//    @OneToMany(fetch = FetchType.EAGER)
+//    private List<Task> finishedTaskList = new ArrayList<>();
 
     public String getUsername() {
         return username;

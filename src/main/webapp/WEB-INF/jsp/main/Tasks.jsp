@@ -20,13 +20,13 @@
     <datatables:table id="tasks" data="${tasks.tasksList}" cdn="true" row="task" theme="bootstrap2" cssClass="table table-striped" paginate="false" info="false" rowIdBase="">
 
         <datatables:column title="Name">
-            <c:if test="${true}">
+            <c:if test="${task.openScore <= openscore}">
                 <spring:url value="tasks/{taskId}" var="taskUrl">
                     <spring:param name="taskId" value="${task.id}"/>
                 </spring:url>
                 <a href="${fn:escapeXml(taskUrl)}"><c:out value="${task.name}"></c:out></a>
             </c:if>
-            <c:if test="${false}">
+            <c:if test="${task.openScore > openscore}">
                 <c:out value="${task.name}"></c:out>
             </c:if>
         </datatables:column>
@@ -34,26 +34,16 @@
             <c:out value="${task.description}"></c:out>
         </datatables:column>
         <datatables:column title="Lock">
-            <c:if test="${true}">
-                <img src="<spring:url value="/resources/images/lock.png" htmlEscape="true" />"
-            </c:if>
-            <c:if test="${false}">
+            <c:if test="${task.openScore <= openscore}">
                 <img src="<spring:url value="/resources/images/bullet-arrow.png" htmlEscape="true" />"
+            </c:if>
+            <c:if test="${task.openScore > openscore}">
+                <img src="<spring:url value="/resources/images/lock.png" htmlEscape="true" />"
             </c:if>
 
         </datatables:column>
     </datatables:table>
 
-    <table class="table-buttons">
-        <tr>
-            <td>
-                <a href="<spring:url value="/vets.xml" htmlEscape="true" />">View as XML</a>
-            </td>
-            <td>
-                <a href="<spring:url value="/vets.atom" htmlEscape="true" />">Subscribe to Atom feed</a>
-            </td>
-        </tr>
-    </table>
 
 
     <jsp:include page="../fragments/footer.jsp"/>

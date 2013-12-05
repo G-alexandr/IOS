@@ -16,11 +16,19 @@ public class Task extends NamedEntity {
 
     private String type;
     private String description;
+    private Integer openScore;
     private Boolean lock;
-
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "task")
     private List<TaskContent> taskContents;
+
+    public Integer getOpenScore() {
+        return openScore;
+    }
+
+    public void setOpenScore(Integer openScore) {
+        this.openScore = openScore;
+    }
 
     public List<TaskContent> getTaskContents() {
         return taskContents;
