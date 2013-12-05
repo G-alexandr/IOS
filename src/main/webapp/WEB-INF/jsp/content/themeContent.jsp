@@ -14,7 +14,7 @@
 <div class="container">
     <jsp:include page="../fragments/bodyHeader.jsp"/>
 
-    <h2><spring:message code="theme"/>${theme.name}</h2>
+    <h2><spring:message code="theme"/>: ${theme.name}</h2>
 
     <c:forEach var="content" items="${contents}">
         <div>
