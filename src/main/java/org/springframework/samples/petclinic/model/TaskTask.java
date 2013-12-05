@@ -31,6 +31,22 @@ public class TaskTask {
     private String formulas;
     private String variables;
     private String answer;
+    private Integer taskId;
+
+    public TaskTask() {
+    }
+
+    public TaskTask(Integer taskId) {
+        this.taskId = taskId;
+    }
+
+    public Integer getTaskId() {
+        return taskId;
+    }
+
+    public void setTaskId(Integer taskId) {
+        this.taskId = taskId;
+    }
 
     @XmlElement
     public String getFormulas() {

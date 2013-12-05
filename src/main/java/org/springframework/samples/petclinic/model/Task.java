@@ -17,6 +17,8 @@ public class Task extends NamedEntity {
     private String type;
     private String description;
     private Boolean lock;
+
+
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "task")
     private List<TaskContent> taskContents;
 

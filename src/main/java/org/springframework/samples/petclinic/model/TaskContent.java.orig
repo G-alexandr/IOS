@@ -13,17 +13,12 @@ public class TaskContent extends BaseEntity {
 
     private String content;
     private int score;
+<<<<<<< HEAD
+=======
+
+>>>>>>> fc7ca5596242606743657c26e3b33f1178543149
     @ManyToOne
     private Task task;
-    private Integer answer;
-
-    public Integer getAnswer() {
-        return answer;
-    }
-
-    public void setAnswer(Integer answer) {
-        this.answer = answer;
-    }
 
     public TaskContent() {
     }

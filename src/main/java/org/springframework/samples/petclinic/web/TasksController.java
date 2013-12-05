@@ -19,6 +19,10 @@ import org.springframework.web.servlet.ModelAndView;
 public class TasksController extends AbstractBaseController {
 
 
+    private static final String SOLUTION = "solution";
+    private static final String POINTS = "points";
+    private static final String TRUTH = "Truth! Great solution ";
+    private static final String FALSE = "False! Your solution is wrong.";
     @Autowired
     private TasksRepository tasksRepository;
 
@@ -39,16 +43,24 @@ public class TasksController extends AbstractBaseController {
             mav.addObject(TASKCONTENT, task.getTaskContents().get(0));
             mav.addObject(CONTENTPART, 0);
         }
-        mav.addObject(FORM, new TaskTask());
+        mav.addObject(FORM, new TaskTask(taskId));
 
         return mav;
     }
 
     @RequestMapping(value = "task/makeResolve", method = RequestMethod.POST)
     public ModelAndView makeResolve(@ModelAttribute(FORM) TaskTask taskAnswer) {
-
+        Task task = tasksRepository.findOne(taskAnswer.getTaskId());
         String input = (taskAnswer.getFormulas()+taskAnswer.getVariables()).toLowerCase();
+        StringBuffer buf = new StringBuffer();
+        for (String st : input.split(",")){
+            if(!st.isEmpty()){
+                buf.append(st).append(",");
+            }
+        }
+        input = buf.toString();
         String answer = "nothing";
+        String solution = "solution";
 
         WAEngine engine = new WAEngine();
         engine.setAppID(appid);
@@ -60,9 +72,9 @@ public class TasksController extends AbstractBaseController {
             WAQueryResult queryResult = engine.performQuery(query);
 
             if (queryResult.isError()) {
-                System.out.println("Query error");
-                System.out.println("  error code: " + queryResult.getErrorCode());
-                System.out.println("  error message: " + queryResult.getErrorMessage());
+//                System.out.println("Query error");
+//                System.out.println("  error code: " + queryResult.getErrorCode());
+//                System.out.println("  error message: " + queryResult.getErrorMessage());
 
                 return new ModelAndView("/error?error=error message:" + queryResult.getErrorMessage());
 
@@ -80,6 +92,8 @@ public class TasksController extends AbstractBaseController {
                                 for (Object element : subpod.getContents()) {
                                     if (element instanceof WAPlainText) {
                                         answer=((WAPlainText) element).getText();
+                                        solution = rateSolution(task.getTaskContents().get(0).getAnswer(),
+                                                answer, taskAnswer.getAnswer() );
                                     }
                                 }
                             }
@@ -95,7 +109,29 @@ public class TasksController extends AbstractBaseController {
         //make result
         ModelAndView mav = new ModelAndView("tasks/result");
         mav.addObject(ANSWER, answer);
+        mav.addObject(SOLUTION, solution);
+        if(solution.equals(TRUTH))
+            mav.addObject(POINTS, task.getTaskContents().get(0).getScore());
+        else
+            mav.addObject(POINTS, 0);
         return mav;
+
+    }
+
+    private String rateSolution(int correctAnswer, String wolframAnswer, String ansverValue){
+
+        int wolfram=0;   //TODO fix it
+        for (String st : wolframAnswer.split(",")){
+            if(st.contains(ansverValue))
+                wolfram = Integer.valueOf(st.substring(st.indexOf("=") + 2));
+        }
+        if((correctAnswer+(correctAnswer*0.1))>wolfram && (correctAnswer-(correctAnswer*0.1))<wolfram){
+            //compute balls here
+            return TRUTH;
+        }
+        //Todo  save it
+
+        return FALSE;
 
     }
 }

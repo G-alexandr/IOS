@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -27,6 +26,8 @@ public class StatisticController extends AbstractBaseController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String currentUserStatistics(Map<String, Object> model){
+        if(!isUserLogged())
+            return getLoginPage();
         List<ThemeProgress> progressList = themeProgressRepository.findByUser(UserService.getCurrentUser());
         model.put("progressList", progressList);
         return "progress/userStatistic";

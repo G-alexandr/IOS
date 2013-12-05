@@ -1,3 +1,6 @@
+<%@ page import="org.springframework.samples.petclinic.web.Constanns" %>
+<%@ page import="org.springframework.samples.petclinic.model.TaskTask" %>
+<%@ page import="org.springframework.samples.petclinic.model.TaskContent" %>
 <!DOCTYPE html>
 
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
@@ -29,8 +32,16 @@
 //        $('#form').submit();
         document.taskform.submit()
     }
+    function addValueField(){
+        $('tbody td input.variable').last().after('<br><input class="variable"  type="text" value="" size="30" maxlength="80"><br>' )
+    }
+    function addFormulasField(){
+        $('tbody td input.formula').last().after('<br><input class="formula"  type="text" value="" size="30" maxlength="80"><br>' )
+    }
 </script>
 <div class="container">
+
+
     <jsp:include page="../fragments/bodyHeader.jsp"/>
 
     <c:if test="${taskmain.type == task}">
@@ -41,24 +52,29 @@
     <form:form id="form" name="taskform" action="/task/makeResolve" method="post" class="form-horizontal" modelAttribute="formbean">
         <form:hidden id="vars" path="variables"/>
         <form:hidden id="fml" path="formulas"/>
+        <form:hidden path="taskId" />
 
         <div class="task_wrap">
         <h3>${taskcontent.content}</h3>
         <br>
         <br>
-            <table border="1">
-                <tr>
-                    <td><p>Variables<p></td>
-                    <td><p>Formulas<p></td>
-                </tr>
-                <tr>
-                    <td><input class="variable" id="value_1" type="text" value="" size="30" maxlength="80">
-                        <input type="button" style="width: 80px" value="Add"></input>
-                    </td>
-                    <td> <input class="formula" id="value_1" type="text" value="" size="30" maxlength="80">
-                        <input type="button" style="width: 80px" value="Add"></input>
-                    </td>
-                </tr>
+            <table border="0">
+                <thead>
+                    <tr>
+                        <td><p>Variables<p><input type="button" style="width: 80px" value="Add" onclick="addValueField()"></td>
+                        <td><p>Formula<p><input type="button" style="width: 80px" value="Add" onclick="addFormulasField()"></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <input class="variable"  type="text" value="" size="30" maxlength="80"><br>
+                        </td>
+                        <td>
+                            <input class="formula"  type="text" value="" size="30" maxlength="80"><br>
+                        </td>
+                    </tr>
+                </tbody>
             </table>
         <br>
         <p>Answer:<p>
@@ -67,7 +83,7 @@
 
         <br>
         <br>
-        <input type="button" style="width: 80px" value="OK" onclick="submitAnswer()"></input>
+        <input type="button" style="width: 80px" value="OK" onclick="submitAnswer()">
     </div>
     </form:form>
 

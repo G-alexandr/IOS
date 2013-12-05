@@ -4,7 +4,7 @@
 <spring:url value="/resources/images/banner-graphic.png" var="banner"/>
 <%--<img src="${banner}"/>--%>
 
-<div class="navbar" style="width: 601px;">
+<div class="navbar" style="width: 700px;">
     <div class="navbar-inner">
         <ul class="nav">
             <li style="width: 100px;"><a href="<spring:url value="/" htmlEscape="true" />"><i
@@ -14,7 +14,7 @@
             <li style="width: 140px;"><a href="<spring:url value="/main/tasks" htmlEscape="true" />"><i
                     class="icon-th-list"></i>Tasks</a></li>
             <li style="width: 140px;"><a href="<spring:url value="/statistic" htmlEscape="true" />"><i
-                class="icon-th-list"></i>Statistic</a></li>
+                    class="icon-th-list"></i>Statistic</a></li>
 
         </ul>
     </div>
