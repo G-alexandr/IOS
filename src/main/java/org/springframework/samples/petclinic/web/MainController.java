@@ -48,8 +48,8 @@ public class MainController extends AbstractBaseController{
 
 
 
-    @RequestMapping("/main/tasks")
-    public String showVetList(Map<String, Object> model, HttpServletRequest request) {
+    @RequestMapping(value = "/main/tasks", method = RequestMethod.GET)
+    public String showTasksist(Map<String, Object> model, HttpServletRequest request) {
         if(!isUserLogged())
             return getLoginPage();
 
@@ -57,7 +57,7 @@ public class MainController extends AbstractBaseController{
         tasks.getTasksList().addAll(tasksRepository.findAll());
         model.put("tasks", tasks);
         model.put("openscore", UserService.getCurrentUser().getScore());
-        return "main/tasks";
+        return "main/Tasks";
     }
     @RequestMapping(value = "/main/themes", method = RequestMethod.GET)
     public String getThemesList(Map<String, Object> model) {
